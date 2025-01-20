@@ -1,5 +1,3 @@
-
-/* eslint-disable prettier/prettier */
 import { Button } from '../../ui_components/button'
 
 const AboutUs = () => {
