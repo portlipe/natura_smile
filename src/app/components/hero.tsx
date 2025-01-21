@@ -28,12 +28,12 @@ const Hero = () => {
                     className="block md:hidden w-full h-full object-cover z-0"
                 />
                 <div className="absolute left-[90px] bottom-[132px] space-y-1">
-                    <div className="bg-blue-500 px-[7px] md:px-[10px]">
+                    <div className="bg-[#0C568C] px-[7px] md:px-[10px]">
                         <h1 className="text-[30px] md:text-[50px] md:leading-[59px] font-medium text-white">
                             Não é sobre dente,
                         </h1>
                     </div>
-                    <div className="bg-blue-500 px-[7px] md:px-[10px]">
+                    <div className="bg-[#0C568C] px-[7px] md:px-[10px]">
                         <h1 className="text-[30px] md:text-[50px] md:leading-[59px] font-medium text-white">
                             realizamos sonhos!
                         </h1>
