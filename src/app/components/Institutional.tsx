@@ -18,8 +18,8 @@ const Institutional = () => {
             className=" cursor-pointer"
             target="_blank"
           >
-            <Button className="md:mr-auto md:h-[48px] md:w-[229px] h-[39px] w-[180px]">
-              entre em contato
+            <Button className="md:mr-auto md:h-[48px] md:w-[229px] h-[45px] w-[190px] bg-[#0C568C] text-[11px]">
+              ENTRE EM CONTATO
             </Button>
           </a>
         </div>

@@ -4,6 +4,7 @@ import Hero from './components/hero'
 import {MenuMobile} from './components/menu-mobile'
 import Services from './components/services'
 import Institutional from './components/Institutional'
+import Equipe from './components/Equipe'
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <AboutUs />
       <Services />
       <Institutional/>
+      <Equipe />
     </div>
   )
 }
