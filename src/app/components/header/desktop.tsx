@@ -13,7 +13,7 @@ const DesktopHeader = () => {
         unoptimized
       />
 
-      <div className="flex items-center gap-[30px]">
+      <div className="flex items-center text-[14px] gap-[25px]">
         {MenuItems.map((item) => (
           <a key={item.label} href={`#${item.link}`}>
             {item.label}

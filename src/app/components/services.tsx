@@ -1,16 +1,10 @@
+
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 
-type Service = {
-  id: string;
-  title: string;
-  description: string;
-  fullDescription?: string;
-};
-
-const services: Service[] = [
+const services = [
   {
     id: "01",
     title: "HARMONIZAÇÃO FACIAL",
@@ -27,6 +21,7 @@ const services: Service[] = [
         Dependendo do procedimento realizado, alguns resultados podem ser vistos de imediato, logo a seguir à intervenção estética, mas o resultado final demora cerca de 15 a 30 dias a surgir. É importante que a harmonização facial seja feita por um profissional altamente capacitado, evitando assim qualquer risco de intercorrências.
       </p>
     `,
+    image: "/service1.png",
   },
   {
     id: "02",
@@ -46,6 +41,7 @@ const services: Service[] = [
         <li style="margin-top: 20px"><strong>Ortodontista:<br/></strong> Especialista na correção da posição dos dentes e dos ossos maxilares mal posicionados.</li>
       </ul>
     `,
+    image: "/service2.png",
   },
   {
     id: "03",
@@ -60,6 +56,7 @@ const services: Service[] = [
         Contamos com equipamentos de última geração e uma equipe de profissionais altamente qualificados. Oferecemos tanto serviços digitais quanto analógicos, sempre buscando atender você da melhor forma possível.
       </p>
     `,
+    image: "/service3.png",
   },
   {
     id: "04",
@@ -121,6 +118,7 @@ const services: Service[] = [
         necessidades e expectativas.
       </p>
     `,
+    image: "/service4.png",
   },
   {
     id: "05",
@@ -134,158 +132,197 @@ const services: Service[] = [
         O procedimento é minimamente invasivo, indolor e não provoca aumento de sensibilidade nos dentes.
       </p>
     `,
+    image: "/service5.png",
   },
 ];
 
 export default function Services() {
-  const [activeSection, setActiveSection] = useState<string>("01");
+  const [activeIndex, setActiveIndex] = useState(0);
   const [showFullDescription, setShowFullDescription] = useState<boolean>(false);
 
-  const activeIndex = parseInt(activeSection) -1;
-  const progress = Array(services.length)
-    .fill("gray")
-    .map((color, index) => (index <= activeIndex ? "blue" : "gray"));
-
-    const visibleServices = services.slice(activeIndex, activeIndex + 3)
-
   const handleNext = () => {
-    setActiveSection((prev) => {
-      const nextIndex = parseInt(prev) < services.length ? parseInt(prev) + 1 : 1;
-      return String(nextIndex).padStart(2, "0");
-    });
+    setActiveIndex((prev) => (prev + 1) % services.length);
   };
 
   const handlePrev = () => {
-    setActiveSection((prev) => {
-      const prevIndex = parseInt(prev) > 1 ? parseInt(prev) - 1 : services.length;
-      return String(prevIndex).padStart(2, "0");
-    });
+    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
   };
 
+  const visibleServices = services.slice(activeIndex, activeIndex + 3).concat(
+    services.slice(0, Math.max(0, activeIndex + 3 - services.length))
+  );
+
+
+  // Serviço visível para mobile
+  const mobileService = services[activeIndex];
+
   return (
-    <section className="relative w-full h-[1200px] bg-gray-100 -mt-28">
-      <div className="relative text-left ml-[98px] mb-[75px] z-20 text-black">
-        <h2 className="text-[54px] leading-[62px] font-bold">
+    <section className="relative w-full h-auto md:h-auto bg-gray-100 pt-[305px] md:-mt-28 md:py-4">
+      <div className="relative text-left md:ml-[98px] md:mb-[75px] z-20 text-black">
+        <h2 className="text-3xl ml-[32px] md:ml-[10px] leading-[40px] md:text-[54px] md:leading-[62px] font-bold">
           Conheça <br /> nossos serviços
         </h2>
       </div>
 
-      <div className="relative w-full h-[380px] mt-6 z-10 ml-[98px]">
+      <div className="relative w-full h-[256px] md:h-[380px] mt-6 z-10 ml-[32px] md:ml-[98px]">
         <Image
-          src="/harmonizacao.png"
+          src={services[activeIndex].image}
           alt="Conheça nossos serviços"
           layout="fill"
           objectFit="cover"
+          quality={100}
         />
       </div>
 
-      <div className="relative w-full h-[50px] ml-[98px] mt-[36px] mb-9 flex">
-        {progress.map((color, index) => (
+      <div className="relative w-full h-[50px] ml-[32px] md:ml-[98px] mt-[36px] mb-9 flex">
+        {services.map((_, index) => (
           <div
             key={index}
-            className={`flex-1 max-w-[269px] h-[3px] ${color === "blue" ? "bg-[#0C568C]" : "bg-gray-300"}`}
+            className={`flex-1 max-w-[269px] h-[3px] ${index >= activeIndex && index < activeIndex + 3 ? "bg-[#0C568C]" : "bg-gray-300"}`}
           ></div>
         ))}
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center ml-[98px] gap-4">
-        {visibleServices.map((service) => (
-          <div
-            key={service.id}
-            className={`flex-1 p-4 text-black  transition-all ${activeSection === service.id ? "text-black" : "bg-gray-100 text-gray-200"
-              }`}
-          >
-            <strong className="text-xl font-semibold">
-              <span
-                className={`block font-bold text-2xl mb-2 ${activeSection === service.id ? "text-black" : "text-gray-200"
+      {/* Renderização para desktop */}
+      <div className="hidden md:flex flex-row justify-center ml-[32px] md:ml-[98px] gap-4">
+        {visibleServices.map((service, index) => {
+          const globalIndex = (activeIndex + index) % services.length;
+          const isActive = globalIndex === activeIndex;
+
+          return (
+            <div
+              key={service.id}
+              className={`card flex-1 p-4 transition-all ${isActive ? "active" : ""}`}
+            >
+              <strong
+                className={`text-xl font-semibold ${isActive ? "text-black" : "text-gray-200"
                   }`}
               >
-                {service.id}
-              </span>
-              {service.title}
-            </strong>
-            <p
-              className="mt-2 text-sm"
-              style={{
-                width:
-                  service.id === "01"
-                    ? "326px"
-                    : service.id === "02"
-                      ? "370px"
-                      : service.id === "03"
-                        ? "279px"
-                        : service.id === "04"
-                          ? "300px"
-                          : service.id === "05"
-                            ? "279.8px"
-                            : "auto",
-              }}
-            >
-              {service.description}
-            </p>
-            {activeSection === service.id && service.fullDescription && (
-              <>
-                {showFullDescription && (
-                  <div
-                    className="mt-4 text-sm"
-                    style={{
-                      width:
-                        service.id === "01"
-                          ? "319px"
-                          : service.id === "02"
-                            ? "300px"
-                            : service.id === "03"
-                              ? "319px"
-                              : service.id === "04"
-                                ? "319px"
-                                : service.id === "05"
-                                  ? "319px"
-                                  : "auto",
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: service.fullDescription,
-                    }}
-                  />
-                )}
-                {showFullDescription && (
-                  <a
-                    href="https://www.youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 text-black font-bold"
-                  >
-                    <br /> Saiba mais clicando aqui <br />
-                  </a>
-                )}
-
-                <button
-                  onClick={() => setShowFullDescription(!showFullDescription)}
-                  className="mt-4 text-black font-medium"
+                <span
+                  className={`block font-bold text-2xl mb-2 ${isActive ? "text-black" : "text-gray-200"
+                    }`}
                 >
-                  {showFullDescription ? "LER MENOS -" : "LER MAIS +"}
-                </button>
-              </>
-            )}
-          </div>
-        ))}
+                  {service.id}
+                </span>
+                {service.title}
+              </strong>
+              <p className={`mt-2 text-sm ${isActive ? "text-black" : "text-gray-200"}`}
+                style={{
+                  width:
+                    service.id === "01"
+                      ? "326px"
+                      : service.id === "02"
+                        ? "370px"
+                        : service.id === "03"
+                          ? "279px"
+                          : service.id === "04"
+                            ? "300px"
+                            : service.id === "05"
+                              ? "279.8px"
+                              : "auto",
+                }}
+              >
+                {service.description}
+              </p>
+              {isActive && service.fullDescription && (
+                <>
+                  {showFullDescription && (
+                    <div
+                      className="mt-4 text-sm text-black"
+                      dangerouslySetInnerHTML={{ __html: service.fullDescription }}
+                    />
+                  )}
+                  {showFullDescription && (
+                    <a
+                      href="https://www.youtube.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 text-black font-bold"
+                    >
+                      <br /> Saiba mais clicando aqui <br />
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setShowFullDescription(!showFullDescription)}
+                    className="mt-4 text-black font-medium"
+                  >
+                    {showFullDescription ? "LER MENOS -" : "LER MAIS +"}
+                  </button>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      <div className="mt-8 gap-4 flex justify-end mr-[96px]">
-        <div
-          onClick={handlePrev}
-          className="cursor-pointer"
-        >
+      {/* Renderização para mobile */}
+      <div className="flex md:hidden flex-col justify-center items-center ml-[32px] md:ml-[98px] gap-4">
+        <div className="card flex-1 p-4 transition-all bg-white text-black">
+          <strong className="text-xl font-semibold">
+            <span className="block font-bold text-2xl mb-2 text-black">
+              {mobileService.id}
+            </span>
+            {mobileService.title}
+          </strong>
+          <p
+            className="mt-2 text-sm text-black"
+            style={{
+              width:
+                mobileService.id === "01"
+                  ? "326px"
+                  : mobileService.id === "02"
+                    ? "370px"
+                    : mobileService.id === "03"
+                      ? "279px"
+                      : mobileService.id === "04"
+                        ? "300px"
+                        : mobileService.id === "05"
+                          ? "279.8px"
+                          : "auto",
+            }}
+          >
+            {mobileService.description}
+          </p>
+          {mobileService.fullDescription && (
+            <>
+              {showFullDescription && (
+                <div
+                  className="mt-4 text-sm text-black"
+                  dangerouslySetInnerHTML={{ __html: mobileService.fullDescription }}
+                />
+              )}
+              {showFullDescription && (
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 text-black font-bold"
+                >
+                  <br /> Saiba mais clicando aqui <br />
+                </a>
+              )}
+              <button
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                className="mt-4 text-black font-medium"
+              >
+                {showFullDescription ? "LER MENOS -" : "LER MAIS +"}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-8 gap-4 flex justify-center md:justify-end md:mr-[96px] pb-[40px]">
+        <div onClick={handlePrev} className="cursor-pointer">
           <Image
-            src="/left.svg"
+            src="/right.svg"
             alt="Left Arrow"
             width={39}
             height={39}
+            className="rotate-180"
           />
         </div>
-        <div
-          onClick={handleNext}
-          className="cursor-pointer"
-        >
+        <div onClick={handleNext} className="cursor-pointer">
           <Image
             src="/right.svg"
             alt="Right Arrow"

@@ -18,12 +18,20 @@ export interface MenuItemsProps {
       link: 'servicos',
     },
     {
+      label: 'Facetas',
+      link: 'facetas',
+    },
+    {
       label: 'Equipe',
       link: 'equipe',
     },
     {
       label: 'Resultados',
       link: 'resultados',
+    },
+    {
+      label: 'FAQ',
+      link: 'faq',
     },
     {
       label: 'Depoimentos',

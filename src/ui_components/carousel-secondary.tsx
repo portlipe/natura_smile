@@ -1,8 +1,6 @@
 'use client'
-
 import * as React from 'react'
 import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react'
-
 import { cn } from '../../libs/utils'
 import { Button } from '../ui_components/button'
 import Image from 'next/image'
@@ -147,7 +145,6 @@ const Carousel = React.forwardRef<
   },
 )
 Carousel.displayName = 'Carousel'
-
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -204,10 +201,10 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-10 w-4 lg:w-10 rounded-full p-0 bg-transparent border-none hover:bg-transparent',
+        'absolute h-12 w-12 rounded-full shadow-md flex items-center justify-center',
         orientation === 'horizontal'
-          ? 'left-0 md:left-2 top-1/2 -translate-y-1/2'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+          ? 'left-4 top-1/2 transform -translate-y-1/2'
+          : '-top-12 left-1/2 transform -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollPrev}
@@ -216,12 +213,11 @@ const CarouselPrevious = React.forwardRef<
     >
       <Image
         src="/left-blue.svg"
-        alt="right"
+        alt="left arrow"
         width={12}
         height={12}
         unoptimized
       />
-      <span className="sr-only">Previous slide</span>
     </Button>
   )
 })
@@ -239,10 +235,10 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-10 w-4 lg:w-10 rounded-full p-0 bg-transparent border-none hover:bg-transparent',
+        'absolute h-12 w-12 rounded-full shadow-md flex items-center justify-center',
         orientation === 'horizontal'
-          ? 'right-0 md:right-2 top-1/2 -translate-y-1/2'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+          ? 'right-4 top-1/2 transform -translate-y-1/2'
+          : '-bottom-12 left-1/2 transform -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollNext}
@@ -251,12 +247,11 @@ const CarouselNext = React.forwardRef<
     >
       <Image
         src="/right-blue.svg"
-        alt="right"
+        alt="right arrow"
         width={12}
         height={12}
         unoptimized
       />
-      <span className="sr-only">Next slide</span>
     </Button>
   )
 })

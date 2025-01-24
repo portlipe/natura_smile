@@ -5,6 +5,9 @@ import {MenuMobile} from './components/menu-mobile'
 import Services from './components/services'
 import Institutional from './components/Institutional'
 import Equipe from './components/Equipe'
+import Facetas from './components/facetas'
+import Results from './components/results'
+import Testimonials from './components/testimonials'
 
 
 export default function Home() {
@@ -16,7 +19,10 @@ export default function Home() {
       <AboutUs />
       <Services />
       <Institutional/>
+      <Facetas />
       <Equipe />
+      <Results />
+      <Testimonials/>
     </div>
   )
 }

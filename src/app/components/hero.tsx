@@ -39,18 +39,18 @@ const Hero = () => {
                         </h1>
                     </div>
                 </div>
-                <footer className="absolute bottom-0 left-0 w-full h-[55px] bg-[#0C568C] flex items-center">
-                    <Marquee gradient={false} speed={30}>
-                        <div className="flex items-center space-x-4">
+                <footer className="absolute bottom-0 left-0 w-full h-[55px] bg-[#0C568C] flex items-center justify-center">
+                    <div className="flex items center">
+                        <Marquee gradient={false} speed={30}>
                             <Image
                                 src="/relogio_icon.svg"
                                 width={32}
                                 height={32}
                                 alt="Ícone de relógio"
                                 unoptimized
-                                className='md: ml-[10px]'
+                                className='ml-4'
                             />
-                            <span className="text-white text-sm md:text-base">
+                            <span className="text-white text-sm md:text-base ml-2">
                                 Das 9 às 20h, de segunda a sexta-feira.
                             </span>
                             <Image
@@ -59,8 +59,9 @@ const Hero = () => {
                                 height={32}
                                 alt="Ícone de telefone"
                                 unoptimized
+                                className='ml-4'
                             />
-                            <span className="text-white text-sm md:text-base">
+                            <span className="text-white text-sm md:text-base ml-2">
                                 +55 (48) 9 9648-2808
                             </span>
                             <Image
@@ -69,12 +70,13 @@ const Hero = () => {
                                 height={32}
                                 alt="Ícone de localização"
                                 unoptimized
+                                className='ml-4'
                             />
-                            <span className="text-white text-sm md:text-base">
+                            <span className="text-white text-sm md:text-base ml-2">
                                 Avenida Santa Catarina, 1197 Sala 815 / 816 - Estreito, Florianópolis - SC, 88075-500
                             </span>
-                        </div>
-                    </Marquee>
+                        </Marquee>
+                    </div>
                 </footer>
             </div>
         </section>

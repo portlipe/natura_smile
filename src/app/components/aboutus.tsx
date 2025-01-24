@@ -5,7 +5,7 @@ import Image from 'next/image';
 const AboutUs = () => {
   return (
     <section id="sobre-nos" className="relative w-full h-[870px] bg-gray-100">
-
+        
       {/* Imagem de fundo */}
       <Image
         src={Fundo}
