@@ -5,13 +5,14 @@ import Image from 'next/image';
 const AboutUs = () => {
   return (
     <section id="sobre-nos" className="relative w-full h-[870px] bg-gray-100">
-        
-      {/* Imagem de fundo */}
-      <Image
-        src={Fundo}
-        alt="fundo natural smile"
-        className="absolute top-0 left-0 w-full h-full z-10"
-      />
+
+      <div className="hidden sm:block">
+        <Image
+          src={Fundo}
+          alt="fundo natural smile"
+          className="absolute top-0 left-0 w-full h-full z-10"
+        />
+      </div>
 
       <div className="relative w-full md:max-w-[1086px] lg:grid xl:px-0 lg:px-[60px] md:px-[71px] lg:grid-cols-2 flex flex-col md:items-stretch items-center md:gap-20 pb-0 py-16 md:py-[120px] mx-auto text-black z-40">
         <div className="lg:order-1 order-2">

@@ -8,6 +8,11 @@ import Equipe from './components/Equipe'
 import Facetas from './components/facetas'
 import Results from './components/results'
 import Testimonials from './components/testimonials'
+import FAQSection from './components/faq'
+import Local from './components/localization'
+import Map from './components/map'
+import Footer from './components/footer'
+import Whatsapp from './components/whatsapp'
 
 
 export default function Home() {
@@ -22,7 +27,12 @@ export default function Home() {
       <Facetas />
       <Equipe />
       <Results />
-      <Testimonials/>
+      <Testimonials />
+      <FAQSection />
+      <Local />
+      <Map />
+      <Footer />
+      <Whatsapp />
     </div>
   )
 }

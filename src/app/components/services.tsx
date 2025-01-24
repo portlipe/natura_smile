@@ -132,7 +132,7 @@ const services = [
         O procedimento é minimamente invasivo, indolor e não provoca aumento de sensibilidade nos dentes.
       </p>
     `,
-    image: "/service5.png",
+    image:"/service5.png",
   },
 ];
 
@@ -157,7 +157,7 @@ export default function Services() {
   const mobileService = services[activeIndex];
 
   return (
-    <section className="relative w-full h-auto md:h-auto bg-gray-100 pt-[305px] md:-mt-28 md:py-4">
+    <section id='servicos' className="relative w-full h-auto md:h-auto bg-gray-100 pt-[305px] md:-mt-28 md:py-4">
       <div className="relative text-left md:ml-[98px] md:mb-[75px] z-20 text-black">
         <h2 className="text-3xl ml-[32px] md:ml-[10px] leading-[40px] md:text-[54px] md:leading-[62px] font-bold">
           Conheça <br /> nossos serviços

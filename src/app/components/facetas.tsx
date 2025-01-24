@@ -3,16 +3,16 @@ import Image from 'next/image';
 
 const FacetasSection: React.FC = () => {
     return (
-        <section className="bg-white px-14 py-12 lg:px-24 text-black md:bg-gray-100">
+        <section id='facetas' className="bg-white px-14 py-12 lg:px-24 text-black md:bg-gray-100">
             <div className="max-w-full md:max-w-full h-[960px] md:h-[700px] md:mt-[70px] md:mb-[70px] md:px-auto md:bg-white md:pt-[70px] pb-[100px]">
                 <h1 className="text-[32px] md:text-[54px] font-bold black text-center mb-4">Facetas</h1>
                 <h2 className="text-[18px] w-[269px] md:w-[500px] md:text-2xl mx-auto font-medium text-black text-center mb-8">
                     Seleção de Cor para Tratamentos com Lentes
                 </h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:ml-[150px]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 md:space-x-12 md:ml-[100px]">
                     {/* Esquerda */}
-                    <div>
+                    <div className='md:mx-auto lg:mx-auto pb-8'>
                         <p className="text-black w-[334px] md:w-[497.46px] text-sm mb-8">
                             Para determinar a cor ideal para os tratamentos com lentes (facetas),
                             utilizamos uma escala de cores que varia do branco ao natural,

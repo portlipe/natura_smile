@@ -35,7 +35,7 @@ export interface MenuItemsProps {
     },
     {
       label: 'Depoimentos',
-      link: 'depoimentos',
+      link: 'testmonials',
     },
     {
       label: 'Institucional',
@@ -43,11 +43,11 @@ export interface MenuItemsProps {
     },
     {
       label: 'Localização',
-      link: 'localizacao',
+      link: 'local',
     },
     {
       label: 'Contato',
-      link: 'contato',
+      link: 'footer',
     },
   ]
   
