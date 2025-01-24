@@ -4,7 +4,7 @@ import { MenuItems } from './data'
 
 const DesktopHeader = () => {
   return (
-    <div className="w-full py-7 px-20 justify-between items-center hidden lg:flex fixed top-0 z-50 bg-white text-black">
+    <div className="w-full py-7 px-20 justify-between items-center hidden lg:flex fixed top-0 z-40 bg-white text-black">
       <Image
         src="/logo.svg"
         alt="logo"
