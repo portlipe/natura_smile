@@ -27,7 +27,7 @@ const Hero = () => {
                     playsInline
                     className="block md:hidden w-full h-full object-cover z-0"
                 />
-                <div className="absolute left-[90px] bottom-[132px] space-y-1">
+                <div className="absolute left-[85px] bottom-[132px] space-y-1">
                     <div className="bg-[#0C568C] px-[7px] md:px-[10px]">
                         <h1 className="text-[30px] md:text-[50px] md:leading-[59px] font-medium text-white">
                             Não é sobre dente,

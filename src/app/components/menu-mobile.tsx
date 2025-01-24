@@ -30,7 +30,7 @@ export function MenuMobile() {
     <div className="fixed lg:hidden top-0 z-50 w-full">
       <div
         className={`flex justify-between items-center py-4 px-8 max-w-[100vw] ${
-          isOpen ? 'bg-white' : isScrolled ? 'bg-white' : 'bg-white'
+          isOpen ? 'bg-black' : isScrolled ? 'bg-white' : 'bg-white'
         }`}
       >
         {!isOpen ? (
