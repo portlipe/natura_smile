@@ -185,9 +185,9 @@ export default function ActivityCarousel() {
   );
 
   return (
-    <div id="servicos" className="relative w-full md:h-auto bg-gray-100 pt-[300px] md:pt-[305px] mt-0 md:-mt-28 md:py-4">
+    <div id="servicos" className="relative w-full md:h-auto bg-gray-100 pt-[300px] md:pt-0 md:pt-[305px] md:-mt-28 md:py-4">
       <div className="relative text-left ml-8 md:ml-[98px] mb-8 md:mb-[75px] z-20 text-black">
-        <h2 className="text-4xl md:text-3xl leading-8 md:leading-[40px] font-bold">
+        <h2 className="text-4xl md:text-[54px] leading-8 md:leading-[62px] font-bold">
           Conheça <br /> nossos serviços
         </h2>
       </div>
@@ -307,7 +307,7 @@ export default function ActivityCarousel() {
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px]">
+          <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px] gap-2">
             <div onClick={handlePrev} className="cursor-pointer mr-4 md:mr-0">
               <Image
                 src="/right.svg"
