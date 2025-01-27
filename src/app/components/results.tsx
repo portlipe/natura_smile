@@ -25,7 +25,7 @@ const images = [
 ];
 
 const Results = () => {
-  const [api, setApi] = useState<EmblaCarouselType | null>(null); // Tipagem correta
+  const [api, setApi] = useState<EmblaCarouselType | null>(null);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const Results = () => {
 
     api.on('select', updateCurrent);
 
-    // Cleanup para remover o listener quando o componente desmonta ou `api` muda
     return () => {
       api.off('select', updateCurrent);
     };
@@ -48,7 +47,7 @@ const Results = () => {
   return (
     <section
       id="resultados"
-      className="bg-[#F9F9F9] py-16 px-8 md:px-[156px] text-black"
+      className="bg-white py-16 px-8 md:px-[156px] text-black"
     >
       <h1 className="text-[30px] max-w-[277px] md:max-w-[1000px] mx-auto leading-[33px] text-center md:text-[54px] md:leading-[70px] font-medium">
         Veja alguns dos nossos resultados

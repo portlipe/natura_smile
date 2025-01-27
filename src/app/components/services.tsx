@@ -1,8 +1,9 @@
-
 "use client";
-
+import * as React from "react";
+import { Card, CardContent } from "@/ui_components/card";
+import { Button } from "@/ui_components/button";
 import Image from "next/image";
-import { useState } from "react";
+
 
 const services = [
   {
@@ -12,7 +13,10 @@ const services = [
       "Procedimentos que equilibram suas expressões faciais, proporcionando beleza natural e harmonia em cada detalhe.",
     fullDescription: `
       <p>
-        A harmonização facial é um conjunto de procedimentos estéticos que têm como objetivo principal promover o alinhamento e correção de ângulos da face, melhorar a harmonia entre os dentes e restantes características da pele, conferir mais beleza ao rosto e realçar as características já existentes, sendo indicada para homens e mulheres que desejam melhorar o equilíbrio do rosto e dentes, promover o rejuvenescimento da pele e melhorar a simetria facial.
+        <strong>O que é</strong>:
+      </p>
+      <p>
+        <br/>A harmonização facial é um conjunto de procedimentos estéticos que têm como objetivo principal promover o alinhamento e correção de ângulos da face, melhorar a harmonia entre os dentes e restantes características da pele, conferir mais beleza ao rosto e realçar as características já existentes, sendo indicada para homens e mulheres que desejam melhorar o equilíbrio do rosto e dentes, promover o rejuvenescimento da pele e melhorar a simetria facial.
       </p>
       <p style="margin-top: 20px;">
         Esta técnica, também conhecida como harmonização orofacial, é feita de acordo com as necessidades da pessoa, de forma individualizada, através de realização de diferentes procedimentos estéticos, como preenchimento com ácido hialurônico nas bochechas, queixo ou lábios, aplicação de toxina botulínica ou bichectomia, por exemplo.
@@ -132,41 +136,65 @@ const services = [
         O procedimento é minimamente invasivo, indolor e não provoca aumento de sensibilidade nos dentes.
       </p>
     `,
-    image:"/service5.png",
+    image: "/service5.png",
   },
 ];
 
-export default function Services() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [showFullDescription, setShowFullDescription] = useState<boolean>(false);
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % services.length);
-  };
+export default function ActivityCarousel() {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
+  const [itemsPerPage, setItemsPerPage] = React.useState(3);
+
+  React.useEffect(() => {
+    const updateItemsPerPage = () => {
+      setItemsPerPage(window.innerWidth <= 390 ? 1 : 3);
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
+    const prevIndex = (currentIndex - 1 + services.length) % services.length;
+    setCurrentIndex(prevIndex);
+    setExpandedIndex(prevIndex);
   };
 
-  const visibleServices = services.slice(activeIndex, activeIndex + 3).concat(
-    services.slice(0, Math.max(0, activeIndex + 3 - services.length))
+  const handleNext = () => {
+    const nextIndex = (currentIndex + 1) % services.length;
+    setCurrentIndex(nextIndex);
+    setExpandedIndex(nextIndex);
+  };
+
+  const handleCardClick = (index: number) => {
+    if (index !== currentIndex) {
+      setCurrentIndex(index);
+      setExpandedIndex(index);
+    } else {
+      setExpandedIndex(expandedIndex === index ? null : index);
+    }
+  };
+
+  const startIndex = Math.floor(currentIndex / itemsPerPage) * itemsPerPage;
+  const displayedServices = services.slice(
+    startIndex,
+    startIndex + itemsPerPage
   );
 
-
-  // Serviço visível para mobile
-  const mobileService = services[activeIndex];
-
   return (
-    <section id='servicos' className="relative w-full h-auto md:h-auto bg-gray-100 pt-[305px] md:-mt-28 md:py-4">
-      <div className="relative text-left md:ml-[98px] md:mb-[75px] z-20 text-black">
-        <h2 className="text-3xl ml-[32px] md:ml-[10px] leading-[40px] md:text-[54px] md:leading-[62px] font-bold">
+    <div id="servicos" className="relative w-full md:h-auto bg-gray-100 pt-[300px] md:pt-[305px] mt-0 md:-mt-28 md:py-4">
+      <div className="relative text-left ml-8 md:ml-[98px] mb-8 md:mb-[75px] z-20 text-black">
+        <h2 className="text-4xl md:text-3xl leading-8 md:leading-[40px] font-bold">
           Conheça <br /> nossos serviços
         </h2>
       </div>
 
-      <div className="relative w-full h-[256px] md:h-[380px] mt-6 z-10 ml-[32px] md:ml-[98px]">
+      <div className="relative w-full h-[156px] md:h-[380px] mt-6 z-10 ml-8 md:ml-[98px]">
         <Image
-          src={services[activeIndex].image}
+          src={services[currentIndex].image}
           alt="Conheça nossos serviços"
           layout="fill"
           objectFit="cover"
@@ -174,39 +202,22 @@ export default function Services() {
         />
       </div>
 
-      <div className="relative w-full h-[50px] ml-[32px] md:ml-[98px] mt-[36px] mb-9 flex">
-        {services.map((_, index) => (
+      <div className="w-full mx-auto px-8 md:px-[98px] py-8 bg-gray-100">
+        <div className="mt-8 h-[2px] bg-[#D3D3D3] rounded-full overflow-hidden">
           <div
-            key={index}
-            className={`flex-1 max-w-[269px] h-[3px] ${index >= activeIndex && index < activeIndex + 3 ? "bg-[#0C568C]" : "bg-gray-300"}`}
-          ></div>
-        ))}
-      </div>
-
-      {/* Renderização para desktop */}
-      <div className="hidden md:flex flex-row justify-center ml-[32px] md:ml-[98px] gap-4">
-        {visibleServices.map((service, index) => {
-          const globalIndex = (activeIndex + index) % services.length;
-          const isActive = globalIndex === activeIndex;
-
-          return (
-            <div
-              key={service.id}
-              className={`card flex-1 p-4 transition-all ${isActive ? "active" : ""}`}
-            >
-              <strong
-                className={`text-xl font-semibold ${isActive ? "text-black" : "text-gray-200"
-                  }`}
-              >
-                <span
-                  className={`block font-bold text-2xl mb-2 ${isActive ? "text-black" : "text-gray-200"
-                    }`}
-                >
-                  {service.id}
-                </span>
-                {service.title}
-              </strong>
-              <p className={`mt-2 text-sm ${isActive ? "text-black" : "text-gray-200"}`}
+            className="h-full bg-[#0C568C] transition-all duration-300 ease-in-out"
+            style={{
+              width: `${((currentIndex + 1) / services.length) * 100}%`,
+            }}
+          />
+        </div>
+        
+        <div className="relative">
+          <div className="flex flex-col md:flex-row overflow-hidden gap-8 mt-8 md:gap-12">
+            {displayedServices.map((service, index) => (
+              <Card
+                key={service.id}
+                className={`w-full border-none flex-shrink-0 md:w-auto ${index === currentIndex ? 'block' : 'hidden'} md:block`}
                 style={{
                   width:
                     service.id === "01"
@@ -222,115 +233,101 @@ export default function Services() {
                               : "auto",
                 }}
               >
-                {service.description}
-              </p>
-              {isActive && service.fullDescription && (
-                <>
-                  {showFullDescription && (
-                    <div
-                      className="mt-4 text-sm text-black"
-                      dangerouslySetInnerHTML={{ __html: service.fullDescription }}
-                    />
-                  )}
-                  {showFullDescription && (
-                    <a
-                      href="https://www.youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 text-black font-bold"
-                    >
-                      <br /> Saiba mais clicando aqui <br />
-                    </a>
-                  )}
-                  <button
-                    onClick={() => setShowFullDescription(!showFullDescription)}
-                    className="mt-4 text-black font-medium"
-                  >
-                    {showFullDescription ? "LER MENOS -" : "LER MAIS +"}
-                  </button>
-                </>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Renderização para mobile */}
-      <div className="flex md:hidden flex-col justify-center items-center ml-[32px] md:ml-[98px] gap-4">
-        <div className="card flex-1 p-4 transition-all bg-white text-black">
-          <strong className="text-xl font-semibold">
-            <span className="block font-bold text-2xl mb-2 text-black">
-              {mobileService.id}
-            </span>
-            {mobileService.title}
-          </strong>
-          <p
-            className="mt-2 text-sm text-black"
-            style={{
-              width:
-                mobileService.id === "01"
-                  ? "326px"
-                  : mobileService.id === "02"
-                    ? "370px"
-                    : mobileService.id === "03"
-                      ? "279px"
-                      : mobileService.id === "04"
-                        ? "300px"
-                        : mobileService.id === "05"
-                          ? "279.8px"
-                          : "auto",
-            }}
-          >
-            {mobileService.description}
-          </p>
-          {mobileService.fullDescription && (
-            <>
-              {showFullDescription && (
-                <div
-                  className="mt-4 text-sm text-black"
-                  dangerouslySetInnerHTML={{ __html: mobileService.fullDescription }}
-                />
-              )}
-              {showFullDescription && (
-                <a
-                  href="https://www.youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 text-black font-bold"
+                <CardContent className={`p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
+                  style={{
+                    width:
+                      service.id === "01"
+                        ? "326px"
+                        : service.id === "02"
+                          ? "370px"
+                          : service.id === "03"
+                            ? "279px"
+                            : service.id === "04"
+                              ? "300px"
+                              : service.id === "05"
+                                ? "279.8px"
+                                : "auto",
+                  }}
                 >
-                  <br /> Saiba mais clicando aqui <br />
-                </a>
-              )}
-              <button
-                onClick={() => setShowFullDescription(!showFullDescription)}
-                className="mt-4 text-black font-medium"
-              >
-                {showFullDescription ? "LER MENOS -" : "LER MAIS +"}
-              </button>
-            </>
-          )}
-        </div>
-      </div>
+                  <h3
+                    className="text-2xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
+                    style={{
+                      color:
+                        startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                    }}
+                  >
+                    {service.id}
+                  </h3>
+                  <h3
+                    className="text-2xl md:text-[22px] font-medium mb-2 uppercase"
+                    style={{
+                      color:
+                        startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                    }}
+                  >
+                    {service.title}
+                  </h3>
+                  <div className="relative">
+                    <div
+                      className="text-sm mb-4"
+                      style={{
+                        color: startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                      }}
+                    >
+                      {service.description}
+                    </div>
+                    {expandedIndex === startIndex + index && (
+                      <>
+                        <div
+                          className="text-sm mb-4"
+                          style={{
+                            color: "#000000",
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: service.fullDescription,
+                          }}
+                        />
+                        <p className="mt-2 text-sm">
+                          <a href="https://www.youtube.com" className="font-bold text-black">
+                            Saiba mais clicando aqui
+                          </a>
+                        </p>
+                      </>
+                    )}
+                    <Button
+                      variant="link"
+                      onClick={() => handleCardClick(startIndex + index)}
+                      className="text-[#7D7D7D] hover:no-underline -ml-4 md:text-[12px] text-[12px] tracking-[0.2px] uppercase"
+                    >
+                      {expandedIndex === startIndex + index ? "Ver menos -" : "Ver mais +"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-      <div className="mt-8 gap-4 flex justify-center md:justify-end md:mr-[96px] pb-[40px]">
-        <div onClick={handlePrev} className="cursor-pointer">
-          <Image
-            src="/right.svg"
-            alt="Left Arrow"
-            width={39}
-            height={39}
-            className="rotate-180"
-          />
-        </div>
-        <div onClick={handleNext} className="cursor-pointer">
-          <Image
-            src="/right.svg"
-            alt="Right Arrow"
-            width={39}
-            height={39}
-          />
+          <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px]">
+            <div onClick={handlePrev} className="cursor-pointer mr-4 md:mr-0">
+              <Image
+                src="/right.svg"
+                alt="Left Arrow"
+                width={39}
+                height={39}
+                className="rotate-180"
+              />
+            </div>
+            <div onClick={handleNext} className="cursor-pointer">
+              <Image
+                src="/right.svg"
+                alt="Right Arrow"
+                width={39}
+                height={39}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

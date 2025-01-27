@@ -60,7 +60,7 @@ const Team = () => {
   return (
     <section
       id="equipe"
-      className="w-full py-16 md:py-[106px] md:px-[61px] max-h-[800px] md:max-h-[800px] bg-white text-black"
+      className="w-full py-16 md:py-[106px] md:px-[61px] max-h-[800px] md:max-h-[800px] bg-[#F9F9F9] text-black"
     >
       <h1 className="font-medium text-[30px] md:text-[54px] leading-[33px] md:leading-[64px] text-black text-center max-w-[309px] md:max-w-full mx-auto">
         Conheça nossa equipe

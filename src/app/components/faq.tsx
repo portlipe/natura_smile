@@ -47,7 +47,7 @@ const FAQSection = () => {
     const answers = [
         {
             text: "O desgaste do dente deve ser realizado apenas em casos de dentes mal posicionados e com manchas, uma vez que a lente de contato dental necessita de espaço e espessura suficientes, mesmo que mínimos, para corrigir a posição inicial do dente e esconder manchas presentes. Hoje, com o avanço da odontologia, os desgastes, na maioria das vezes, são mínimos e até mesmo imperceptíveis a olho nu.",
-            textWidth: "sm:w-[531px] w-[376px]"
+            textWidth: "sm:w-[531px] w-[320px]"
         },
         {
             text: "A lente de contato dental é feita de porcelana (dissilicato de lítio); portanto, não mancha.",
@@ -55,7 +55,7 @@ const FAQSection = () => {
         },
         {
             text: "<p>A lente de contato dental possui uma vida útil que não pode ser mensurada. Por ser um material inerte e biologicamente compatível com o esmalte dental, ela pode durar por toda a vida, dependendo dos cuidados de cada paciente.</p><br/>Contudo, os tecidos ao redor, como a superfície do dente sob a porcelana e a gengiva, podem sofrer alterações ao longo do tempo, como cáries e retração gengival. O que garante a longevidade da lente de contato dental é a correta higienização bucal e visitas periódicas ao dentista.",
-            textWidth: "sm:w-[454px] w-[376px]"
+            textWidth: "sm:w-[454px] w-[320px]"
         },
         {
             text: `
@@ -64,27 +64,27 @@ const FAQSection = () => {
         <strong>2. Preparo:</strong> A segunda consulta envolve o preparo dos dentes e a adequação do meio bucal, necessários para iniciar a confecção das lentes de contato dentais.<br/>
         <strong>3. Instalação:</strong> Na terceira e última consulta, é feita a instalação final das lentes.
       `,
-            textWidth: "sm:w-[487px] sm:leading-[23.1px] w-[366px]"
+            textWidth: "sm:w-[487px] sm:leading-[23.1px] w-[313px]"
         },
         {
             text: "Este é um fator importante que deve ser discutido com o paciente durante a avaliação inicial. Assim, ao final do tratamento, os dentes poderão formar um sorriso ideal e harmônico.",
-            textWidth: "sm:w-[448px]"
+            textWidth: "sm:w-[448px] w-[320px]"
         },
         {
             text: "A manutenção das facetas dentárias consiste em visitas anuais ao dentista para revisão, incluindo uma profilaxia. Ainda assim, é essencial manter uma rotina de cuidados bucais adequados em casa, garantindo a durabilidade das facetas/lentes.",
-            textWidth: "sm:w-[448px]"
+            textWidth: "sm:w-[448px] w-[320px]"
         },
         {
             text: "É o laser mais versátil do mundo, projetado para transformar a odontologia com sua tecnologia exclusiva Laser-in-Handpiece™. Ideal para tecidos duros e moles, ele permite tratamentos precisos, menos invasivos e com recuperação acelerada.",
-            textWidth: "sm:w-[448px]"
+            textWidth: "sm:w-[448px] w-[316px]"
         },
         {
             text: "O laser remove o tecido gengival mole, sendo útil em procedimentos como a criação de uma depressão ao redor da gengiva para melhorar a visibilidade e o acesso dentário, além de remodelar as gengivas para fins estéticos.",
-            textWidth: "sm:w-[475px]"
+            textWidth: "sm:w-[475px] w-[310px]"
         },
         {
             text: "O procedimento é extremamente rápido e não requer anestesia. O laser atua apenas no cimento que fixa a faceta ao dente, sem causar qualquer tipo de agressão aos tecidos dentários e gengivais. É um processo minimamente invasivo, indolor e sem aumento de sensibilidade nos dentes.",
-            textWidth: "sm:w-[475px]"
+            textWidth: "sm:w-[475px] w-[307px]"
         }
     ];
 
@@ -97,10 +97,10 @@ const FAQSection = () => {
     };
 
     return (
-        <div className="p-3 bg-[#0C568C] text-white py-[80px]">
+        <section id='faq' className="p-3 bg-[#0C568C] text-white py-[50px]">
             <h1 className="text-[32px] sm:text-[54px] font-medium mb-[40px] sm:mb-[80px] text-center">Perguntas Frequentes</h1>
             <div className="flex flex-col sm:flex-row sm:w-[1220px] mx-auto">
-                <div className="flex flex-col w-[400px] sm:w-[600px] sm:pr-4">
+                <div className="flex flex-col sm:w-[600px] sm:pl-4">
                     {questions.slice(0, 4).map((question, index) => (
                         <div
                             key={index}
@@ -121,7 +121,7 @@ const FAQSection = () => {
                             </div>
                             {activeIndexes.includes(index) && (
                                 <div
-                                    className={`mt-4 text-black text-sm ${answers[index]?.textWidth}`}
+                                    className={`mt-4 text-black text-[12px] ${answers[index]?.textWidth}`}
                                     dangerouslySetInnerHTML={{ __html: answers[index]?.text || "A resposta será adicionada em breve." }}
                                 />
                             )}
@@ -149,7 +149,7 @@ const FAQSection = () => {
                             </div>
                             {activeIndexes.includes(index + 4) && (
                                 <div
-                                    className={`mt-4 text-black text-sm ${answers[index + 4]?.textWidth}`}
+                                    className={`mt-4 text-black text-[12px] ${answers[index + 4]?.textWidth}`}
                                     dangerouslySetInnerHTML={{ __html: answers[index + 4]?.text || "A resposta será adicionada em breve." }}
                                 />
                             )}
@@ -157,7 +157,7 @@ const FAQSection = () => {
                     ))}
                 </div>
             </div>
-        </div >
+        </section>
     );
 };
 

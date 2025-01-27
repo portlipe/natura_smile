@@ -14,7 +14,7 @@ const AboutUs = () => {
         />
       </div>
 
-      <div className="relative w-full md:max-w-[1086px] lg:grid xl:px-0 lg:px-[60px] md:px-[71px] lg:grid-cols-2 flex flex-col md:items-stretch items-center md:gap-20 pb-0 py-16 md:py-[120px] mx-auto text-black z-40">
+      <div className="relative w-full md:max-w-[1086px] lg:grid xl:px-0 lg:px-[60px] md:px-[71px] lg:grid-cols-2 flex flex-col md:items-stretch items-center md:gap-20 pb-0 py-16 md:py-[120px] mx-auto text-black z-30">
         <div className="lg:order-1 order-2">
           <video
             src="/sobre-nos.mp4"
