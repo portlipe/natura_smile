@@ -135,7 +135,7 @@ const FAQSection = () => {
                             className="mb-4 bg-white text-black p-5 sm:p-[40px] flex flex-col"
                         >
                             <div className="flex items-center justify-between">
-                                <h2 className={`text-[16px] sm:text-[17px] font-semibold ${questions[index + 4].textWidth}`}>
+                                <h2 className={`text-[12px] sm:text-[17px] font-semibold ${questions[index + 4].textWidth}`}>
                                     {index + 5} - {questions[index + 4].text}
                                 </h2>
                                 <Image

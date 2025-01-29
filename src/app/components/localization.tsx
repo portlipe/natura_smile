@@ -15,16 +15,16 @@ import { useState, useEffect } from 'react';
 import { EmblaCarouselType } from 'embla-carousel';
 
 const images = [
-  '/recep_1.png',
-  '/consult_1.png',
-  '/recep_2.png',
-  '/lab.png',
-  '/consult_1_2.png',
-  '/consult_2_1.png',
-  '/consult_1_1.png',
-  '/ultrassom_profil.png',
-  '/consult_2.png',
-  '/laser.png',
+  { src: '/recep1.png', name: 'Recepção 1' },
+  { src: '/consult1.png', name: 'Consultório 1' },
+  { src: '/recep2.png', name: 'Recepção 2' },
+  { src: '/lab.png', name: 'Laboratório' },
+  { src: '/consult12.png', name: 'Consultório 1' },
+  { src: '/consult21.png', name: 'Consultório 2' },
+  { src: '/consult13.png', name: 'Consultório 1' },
+  { src: '/ultrassom_profil.png', name: 'Ultrassom Profilaxia' },
+  { src: '/consult2.png', name: 'Consultório 2' },
+  { src: '/laser.png', name: 'Laser Litetouch' },
 ];
 
 const Local = () => {
@@ -74,17 +74,20 @@ const Local = () => {
               key={index}
               className="basis-full md:basis-1/2 flex-shrink-0"
             >
-              <div className="p-0">
+              <div className="p-0 relative">
                 <Card className="rounded-none border-none pl-4 shadow-none">
                   <CardContent className="p-2">
                     <Image
-                      src={image}
-                      alt="imagem de antes e depois"
-                      width={500}
-                      height={440}
+                      src={image.src}
+                      alt={image.name}
+                      width={400}
+                      height={300}
                       className="border-none flex md:w-[500px] md:h-[440px] rounded-none mb-[20px]"
                       unoptimized
                     />
+                    <div className="absolute bottom-10 left-10 bg-opacity-0 bg-black text-white px-2 py-1 text-[22px] font-bold uppercase">
+                      {image.name}
+                    </div>
                   </CardContent>
                 </Card>
               </div>

@@ -30,20 +30,20 @@ const AboutUs = () => {
 
         <div className="md:max-w-[465px] max-w-[390px] text-center md:text-left md:px-[0px] px-[37px] lg:order-2 order-1 md:pb-[0px] pb-[65px]">
           <h1 className="text-[32px] md:text-[54px] font-medium mb-2">Sobre nós</h1>
-          <p className="text-[14px] leading-[23px] font-normal">
+          <p className="text-[12px] sm:text-[14px] leading-[23px] font-normal">
             Somos uma clínica odontológica de excelência, equipada com
             laboratório próprio, o que nos permite controlar cada etapa do
             tratamento e garantir um alto padrão de qualidade e precisão.
           </p>
 
-          <p className="text-[14px] leading-[23px] font-normal mt-3 md:mt-4">
+          <p className="text-[12px] sm:text-[14px] leading-[23px] font-normal mt-3 md:mt-4">
             Especializados em laminados cerâmicos, também conhecidos como lentes
             de contato dental, oferecemos soluções estéticas que vão além da
             aparência, restaurando a confiança e promovendo impacto na vida dos
             nossos pacientes.
           </p>
 
-          <p className="text-[14px] leading-[23px] font-normal mt-3 md:mt-4">
+          <p className="text-[12px] sm:text-[14px] leading-[23px] font-normal mt-3 md:mt-4">
             Nosso principal compromisso é devolver a autoestima e o bem-estar,
             criando sorrisos harmônicos, naturais e personalizados, que refletem
             o que há de mais avançado na odontologia estética e funcional.

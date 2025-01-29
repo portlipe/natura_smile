@@ -2,7 +2,7 @@ import { Button } from "../../ui_components/button";
 
 const Institutional = () => {
   return (
-    <section id="video" className="bg-black">
+    <section id="video" className="bg-black text-white">
       <div className="lg:grid lg:grid-cols-2 flex flex-col max-w-[1440px] mx-auto items-center md:items-start lg:px-[108px] md:px-[71px] lg:gap-[80px]">
         <div className="md:py-[42px] lg:py-[130px] space-y-5 flex flex-col  justify-center md:items-start items-center md:pt-[40px] pt-[42px]">
           <h1 className="max-w-[332px] md:max-w-[500px] text-center md:text-start text-[30px] md:text-[54px] leading-[33px] md:leading-[65px] font-medium">

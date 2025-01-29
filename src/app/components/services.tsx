@@ -3,6 +3,7 @@ import * as React from "react";
 import { Card, CardContent } from "@/ui_components/card";
 import { Button } from "@/ui_components/button";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 
 const services = [
@@ -25,7 +26,8 @@ const services = [
         Dependendo do procedimento realizado, alguns resultados podem ser vistos de imediato, logo a seguir à intervenção estética, mas o resultado final demora cerca de 15 a 30 dias a surgir. É importante que a harmonização facial seja feita por um profissional altamente capacitado, evitando assim qualquer risco de intercorrências.
       </p>
     `,
-    image: "/service1.png",
+    image: "/service1.png", 
+    textWidth: "w-[90%] sm:w-[100%]"
   },
   {
     id: "02",
@@ -46,6 +48,7 @@ const services = [
       </ul>
     `,
     image: "/service2.png",
+    textWidth: "w-[90%] sm:w-[80%]"
   },
   {
     id: "03",
@@ -61,6 +64,7 @@ const services = [
       </p>
     `,
     image: "/service3.png",
+    textWidth: "w-[90%] sm:w-[115%]"
   },
   {
     id: "04",
@@ -100,10 +104,10 @@ const services = [
   
       <strong><br/>Outras Diferenças entre Facetas de Resina e Porcelana:</strong>
       <ul style="list-style-type: disc; margin-left: 20px;">
-        <li style="margin-top: 20px"><strong>Translucidez:</strong> A porcelana é mais translúcida que a resina, conferindo um aspecto mais natural aos dentes.</li>
-        <li style="margin-top: 20px"><strong>Resistência:</strong> A porcelana é mais resistente que a resina, sendo mais indicada para casos de bruxismo ou mordida forte.</li>
-        <li style="margin-top: 20px"><strong>Abrasão:</strong> A porcelana é menos abrasiva que a resina, reduzindo o risco de desgaste nos dentes adjacentes.</li>
-        <li style="margin-top: 20px"><strong>Riscos de Fratura:</strong> As facetas de porcelana são menos propensas a fraturas em comparação às facetas de resina.</li>
+        <li style="margin-top: 20px"><strong>Translucidez:</strong><br /> A porcelana é mais translúcida que a resina, conferindo um aspecto mais natural aos dentes.</li>
+        <li style="margin-top: 20px"><strong>Resistência:</strong><br /> A porcelana é mais resistente que a resina, sendo mais indicada para casos de bruxismo ou mordida forte.</li>
+        <li style="margin-top: 20px"><strong>Abrasão:</strong><br /> A porcelana é menos abrasiva que a resina, reduzindo o risco de desgaste nos dentes adjacentes.</li>
+        <li style="margin-top: 20px"><strong>Riscos de Fratura:</strong><br /> As facetas de porcelana são menos propensas a fraturas em comparação às facetas de resina.</li>
       </ul>
   
       <strong><br/>Escolha entre Facetas de Resina e Porcelana:</strong>
@@ -123,6 +127,7 @@ const services = [
       </p>
     `,
     image: "/service4.png",
+    textWidth: "w-[90%] sm:w-[104%]"
   },
   {
     id: "05",
@@ -137,25 +142,38 @@ const services = [
       </p>
     `,
     image: "/service5.png",
+    textWidth: "w-[90%] sm:w-[100%]"
   },
 ];
 
-
 export default function ActivityCarousel() {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
-  const [itemsPerPage, setItemsPerPage] = React.useState(3);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [windowWidth, setWindowWidth] = useState(0); 
 
-  React.useEffect(() => {
-    const updateItemsPerPage = () => {
-      setItemsPerPage(window.innerWidth <= 390 ? 1 : 3);
-    };
+useEffect(() => {
+  const updateWindowWidthAndItemsPerPage = () => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      setWindowWidth(width); 
+      setItemsPerPage(width <= 390 ? 1 : 3);
+    }
+  };
 
-    updateItemsPerPage();
-    window.addEventListener("resize", updateItemsPerPage);
+  updateWindowWidthAndItemsPerPage();
 
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", updateWindowWidthAndItemsPerPage);
+  }
+
+  return () => {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("resize", updateWindowWidthAndItemsPerPage);
+    }
+  };
+}, []);
+  
 
   const handlePrev = () => {
     const prevIndex = (currentIndex - 1 + services.length) % services.length;
@@ -170,12 +188,12 @@ export default function ActivityCarousel() {
   };
 
   const handleCardClick = (index: number) => {
-    if (index !== currentIndex) {
-      setCurrentIndex(index);
-      setExpandedIndex(index);
-    } else {
-      setExpandedIndex(expandedIndex === index ? null : index);
+    const container = document.getElementById('servicos');
+    if (expandedIndex !== null && expandedIndex === index && typeof window !== "undefined") {
+      const offsetTop = container?.offsetTop || 0;
+      window.scrollTo({ top: offsetTop + 300, behavior: 'smooth' });
     }
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   const startIndex = Math.floor(currentIndex / itemsPerPage) * itemsPerPage;
@@ -185,24 +203,26 @@ export default function ActivityCarousel() {
   );
 
   return (
-    <div id="servicos" className="relative w-full md:h-auto bg-gray-100 pt-[300px] md:pt-0 md:pt-[305px] md:-mt-28 md:py-4">
-      <div className="relative text-left ml-8 md:ml-[98px] mb-8 md:mb-[75px] z-20 text-black">
-        <h2 className="text-4xl md:text-[54px] leading-8 md:leading-[62px] font-bold">
+    <div id="servicos" className="relative w-full md:h-auto bg-gray-100 pt-[300px] md:pt-0 md:-mt-28 md:py-4">
+      <div className="relative text-left mx-4 md:ml-[98px] mb-8 md:mb-[75px] z-20 text-black">
+        <h2 className="text-3xl sm:text-4xl md:text-[54px] leading-8 md:leading-[62px] font-bold">
           Conheça <br /> nossos serviços
         </h2>
       </div>
 
-      <div className="relative w-full h-[156px] md:h-[380px] mt-6 z-10 ml-8 md:ml-[98px]">
+      <div className="relative w-full h-[156px] sm:h-[256px] md:h-[380px] mt-6 z-10 ml-4 md:ml-[98px]">
         <Image
           src={services[currentIndex].image}
           alt="Conheça nossos serviços"
           layout="fill"
           objectFit="cover"
           quality={100}
+          unoptimized={true}
+          className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="w-full mx-auto px-8 md:px-[98px] py-8 bg-gray-100">
+      <div className="w-full mx-auto px-4 md:px-[98px] py-8 bg-gray-100">
         <div className="mt-8 h-[2px] bg-[#D3D3D3] rounded-full overflow-hidden">
           <div
             className="h-full bg-[#0C568C] transition-all duration-300 ease-in-out"
@@ -213,44 +233,31 @@ export default function ActivityCarousel() {
         </div>
         
         <div className="relative">
-          <div className="flex flex-col md:flex-row overflow-hidden gap-8 mt-8 md:gap-12">
-            {displayedServices.map((service, index) => (
+          <div className="flex flex-col md:flex-row overflow-hidden gap-8 mt-8 md:gap-16">
+            {displayedServices.map((service, index) => {
+              return (
               <Card
                 key={service.id}
                 className={`w-full border-none flex-shrink-0 md:w-auto ${index === currentIndex ? 'block' : 'hidden'} md:block`}
                 style={{
-                  width:
+                  width: windowWidth <= 500 ? '100%' :
                     service.id === "01"
-                      ? "326px"
+                      ? "25%"
                       : service.id === "02"
-                        ? "370px"
+                        ? "30%"
                         : service.id === "03"
-                          ? "279px"
+                          ? "22.2%"
                           : service.id === "04"
-                            ? "300px"
+                            ? "24.7%"
                             : service.id === "05"
-                              ? "279.8px"
+                              ? "25%"
                               : "auto",
                 }}
               >
-                <CardContent className={`p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
-                  style={{
-                    width:
-                      service.id === "01"
-                        ? "326px"
-                        : service.id === "02"
-                          ? "370px"
-                          : service.id === "03"
-                            ? "279px"
-                            : service.id === "04"
-                              ? "300px"
-                              : service.id === "05"
-                                ? "279.8px"
-                                : "auto",
-                  }}
+                <CardContent className={`p-4 md:p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
                 >
                   <h3
-                    className="text-2xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
+                    className="text-xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
                     style={{
                       color:
                         startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
@@ -259,7 +266,7 @@ export default function ActivityCarousel() {
                     {service.id}
                   </h3>
                   <h3
-                    className="text-2xl md:text-[22px] font-medium mb-2 uppercase"
+                    className="text-xl md:text-[22px] font-medium mb-2 uppercase"
                     style={{
                       color:
                         startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
@@ -269,7 +276,7 @@ export default function ActivityCarousel() {
                   </h3>
                   <div className="relative">
                     <div
-                      className="text-sm mb-4"
+                      className="text-[12px] sm:text-sm text-black w-[100%] mb-4"
                       style={{
                         color: startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
                       }}
@@ -279,7 +286,7 @@ export default function ActivityCarousel() {
                     {expandedIndex === startIndex + index && (
                       <>
                         <div
-                          className="text-sm mb-4"
+                          className={`text-[12px] sm:text-sm mb-4 ${service.textWidth}`}
                           style={{
                             color: "#000000",
                           }}
@@ -287,8 +294,8 @@ export default function ActivityCarousel() {
                             __html: service.fullDescription,
                           }}
                         />
-                        <p className="mt-2 text-sm">
-                          <a href="https://www.youtube.com" className="font-bold text-black">
+                        <p className="mt-2 text-[12px] sm:text-sm">
+                          <a href="https://www.youtube.com" className="font-bold text-black hover:underline">
                             Saiba mais clicando aqui
                           </a>
                         </p>
@@ -296,15 +303,16 @@ export default function ActivityCarousel() {
                     )}
                     <Button
                       variant="link"
-                      onClick={() => handleCardClick(startIndex + index)}
-                      className="text-[#7D7D7D] hover:no-underline -ml-4 md:text-[12px] text-[12px] tracking-[0.2px] uppercase"
+                      onClick={() => handleCardClick(startIndex + index) }
+                      
+                      className="text-[#7D7D7D] hover:no-underline text-[12px] sm:text-sm tracking-[0.2px] uppercase ml-[-16px] pt-2"
                     >
                       {expandedIndex === startIndex + index ? "Ver menos -" : "Ver mais +"}
                     </Button>
                   </div>
                 </CardContent>
               </Card>
-            ))}
+)})}
           </div>
 
           <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px] gap-2">
@@ -317,7 +325,7 @@ export default function ActivityCarousel() {
                 className="rotate-180"
               />
             </div>
-            <div onClick={handleNext} className="cursor-pointer">
+            <div onClick={() => handleNext} className="cursor-pointer">
               <Image
                 src="/right.svg"
                 alt="Right Arrow"

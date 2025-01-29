@@ -39,6 +39,7 @@ const description = [
   'Ceramista, Oral Design | CRO 1062 ',
   'Implantodontista ',
 ]
+
 const items = image.map((img, index) => ({
   image: img,
   description: description[index] || '',
@@ -51,7 +52,6 @@ const Team = () => {
 
   useEffect(() => {
     if (!api) return
-
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap())
     })
@@ -60,13 +60,13 @@ const Team = () => {
   return (
     <section
       id="equipe"
-      className="w-full py-16 md:py-[106px] md:px-[61px] max-h-[800px] md:max-h-[800px] bg-[#F9F9F9] text-black"
+      className="w-full py-12 sm:py-16 md:py-[106px] px-4 sm:px-6 md:px-[61px] max-h-auto bg-[#F9F9F9] text-black"
     >
-      <h1 className="font-medium text-[30px] md:text-[54px] leading-[33px] md:leading-[64px] text-black text-center max-w-[309px] md:max-w-full mx-auto">
+      <h1 className="font-medium text-2xl sm:text-[30px] md:text-[54px] leading-[28px] sm:leading-[33px] md:leading-[64px] text-black text-center max-w-xs sm:max-w-[309px] md:max-w-full mx-auto">
         Conheça nossa equipe
       </h1>
 
-      <p className="max-w-[327px] md:max-w-[799px] text-sm md:text-sm leading-[15.81px] md:leading-[23px] text-center mx-auto mt-7 md:mt-10 text-black">
+      <p className="max-w-[280px] sm:max-w-[327px] md:max-w-[799px] text-[12px] sm:text-sm md:text-sm text-center mx-auto mt-5 sm:mt-7 md:mt-10 text-black leading-5 sm:leading-[15.81px] md:leading-[23px]">
         Nossa equipe é formada por profissionais altamente capacitados em todas
         as áreas da odontologia, com especializações que abrangem desde a
         estética dental e harmonização facial até tratamentos odontológicos
@@ -84,29 +84,29 @@ const Team = () => {
           }),
         ]}
         setApi={setApi}
-        className="w-full max-w-[95vw] lg:max-w-[1110px] mx-auto mt-5 md:mt-12 max-h-[500px]"
+        className="w-full max-w-xs sm:max-w-[95vw] lg:max-w-[1110px] mx-auto mt-5 sm:mt-8 md:mt-12"
       >
         <CarouselContent>
           {items.map((item, index) => (
             <CarouselItem
               key={index}
-              className="basis-full sm:basis-full md:basis-1/2 lg:basis-1/3 border-none lg:max-w-[90vw]"
+              className="basis-full sm:basis-3/4 md:basis-1/2 lg:basis-1/3 border-none"
             >
-              <div className="p-4 md:px-[28px]">
+              <div className="p-2 sm:p-4 md:px-[28px]">
                 <Card className="rounded-none border-none p-0 shadow-none">
-                  <CardContent className="p-0 flex flex-col">
+                  <CardContent className="p-0 flex flex-col items-center sm:items-start">
                     <Image
                       src={item.image}
-                      alt="Imagem "
-                      width={310}
-                      height={470}
-                      className="border-none flex ml-8 md:ml-0 max-w-[400px] max-h-[470px] rounded-none mb-[20px]"
+                      alt="Imagem"
+                      width={320}
+                      height={420}
+                      className="border-none flex max-w-[300px] sm:max-w-[320px] md:max-w-[400px] max-h-[400px] sm:max-h-[470px] rounded-none mb-4 sm:mb-[20px]"
                       unoptimized
                     />
-                    <strong className="uppercase text-lg font-bold text-center md:text-left">
+                    <strong className="uppercase text-base sm:text-lg font-bold text-center sm:text-left">
                       {item.team}
                     </strong>
-                    <p className="text-[12px] md:text-[13px] text-center md:text-left">
+                    <p className="text-xs sm:text-sm text-center sm:text-left">
                       {item.description}
                     </p>
                   </CardContent>
@@ -115,10 +115,13 @@ const Team = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-[-50px] top-1/2 transform -translate-y-1/2 p-0 cursor-pointer border-none" />
-        <CarouselNext className="absolute right-[-50px] top-1/2 transform -translate-y-1/2 p-0 cursor-pointer border-none" />
+
+        {/* Ajuste nos botões de navegação para telas pequenas */}
+        <CarouselPrevious className="absolute left-0 sm:left-[-30px] top-1/2 transform -translate-y-1/2 p-0 cursor-pointer border-none hidden sm:flex" />
+        <CarouselNext className="absolute right-0 sm:right-[-30px] top-1/2 transform -translate-y-1/2 p-0 cursor-pointer border-none hidden sm:flex" />
+
         {/* Dots de paginação */}
-        <div className="flex justify-center gap-2 mt-5 md:mt-10">
+        <div className="flex justify-center gap-2 mt-5 sm:mt-8 md:mt-10">
           {items.map((_, index) => (
             <button
               key={index}

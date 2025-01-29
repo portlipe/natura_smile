@@ -94,8 +94,8 @@ const Testimonials = () => {
               key={index}
               className="basis-full sm:basis-full md:basis-1/2 lg:basis-1/3"
             >
-              <div className="p-8 sm:p-4">
-                <Card className="bg-white w-[336px] h-[270px] border-none">
+              <div className="p-2 sm:p-4">
+                <Card className="bg-white w-[295px] h-[220px] sm:w-[336px] sm:h-[270px] border-none">
                   <CardContent className="flex flex-col p-[21.7px] items-start">
                     <div className="flex items-center gap-4 mb-4">
                       <Image
@@ -118,7 +118,7 @@ const Testimonials = () => {
                       </div>
                     </div>
                     <p 
-                      className="text-sm font-medium text-gray-600 italic mt-4"
+                      className="text-[12px] sm:text-sm font-medium text-gray-600 italic mt-4"
                     >
                       {item.text}
                     </p>

@@ -72,8 +72,8 @@ const Results = () => {
               className="basis-full md:basis-1/2 flex-shrink-0"
             >
               <div className="p-0">
-                <Card className="rounded-none border-none pl-4 shadow-none">
-                  <CardContent className="p-2">
+                <Card className="rounded-none border-none pl-2 shadow-none">
+                  <CardContent className="p-0">
                     <Image
                       src={image}
                       alt="imagem de antes e depois"
