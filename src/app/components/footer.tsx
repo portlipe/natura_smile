@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import React from 'react';
 import { Instagram } from 'lucide-react';
 import Image from 'next/image';
 
 const Footer = () => {
     return (
-        <footer id='contato' className="bg-black text-white py-8 h-[900px] sm:h-[420px] sm:py-[120px] relative">
-            <div className="container sm:ml-[96px] grid grid-cols-1 sm:grid-cols-5 gap-[10px] px-6">
+        <footer id='contato' className="bg-black text-white py-8 h-[900px] sm:h-[340px] sm:py-[80px] relative">
+            <div className="container sm:ml-[30px] grid grid-cols-1 sm:grid-cols-5 px-24 gap-[110px]">
                 {/* Column 1 */}
                 <div className="flex flex-col space-y-6 sm:space-y-4">
                     <a href="#home" className="sm:text-[13px] text-sm hover:underline">Home</a>
@@ -32,15 +32,15 @@ const Footer = () => {
                 <div className="sm:text-[13px] text-sm space-y-6 sm:space-y-2 mt-4 sm:mt-0">
                     <p><strong>Contato</strong></p>
                     <p>+55 (48) 9 9648-2808</p>
-                    <p><strong>E-mail</strong>:<br/>naturalsmilelab048@gmail.com</p>
+                    <p><strong>E-mail</strong>:<br />naturalsmilelab048@gmail.com</p>
                 </div>
 
                 {/* Column 5 - Endereço */}
-                <div className="sm:text-[13px] text-sm space-y-6 sm:space-y-2">
+                <div className="sm:text-[13px] text-sm space-y-6 sm:space-y-2 w-[268px]">
                     <p><strong>Endereço</strong></p>
                     <p>Avenida Santa Catarina, 197 Sala 815 / 816 - Estreito, Florianópolis - SC, 88075-500</p>
                 </div>
-                
+
                 {/* Instagram Icon */}
                 <div className="absolute bottom-[90px] sm:right-[70px] sm:bottom-[120px]">
                     <a href="https://www.instagram.com/naturalsmile.ns/" target="_blank" rel="noopener noreferrer">
@@ -50,7 +50,7 @@ const Footer = () => {
             </div>
 
             {/* Footer Bottom */}
-            <div className="sm:border-t border-gray-800 mt-12 sm:mt-32 mt-[130px] pt-4 text-center sm:text-[13px] text-sm">
+            <div className="sm:border-t border-gray-800 mt-12 sm:mt-24 mt-[130px] pt-4 text-center sm:text-[13px] text-sm">
                 <div className="flex flex-row justify-center items-center mt-16 sm:mt-2">
                     <p>Desenvolvido por </p>
                     <Image

@@ -162,38 +162,33 @@ export default function ActivityCarousel() {
     };
 
     updateWindowWidthAndItemsPerPage();
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", updateWindowWidthAndItemsPerPage);
-    }
+    window.addEventListener("resize", updateWindowWidthAndItemsPerPage);
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", updateWindowWidthAndItemsPerPage);
-      }
+      window.removeEventListener("resize", updateWindowWidthAndItemsPerPage);
     };
   }, []);
 
-
   const handlePrev = () => {
-    const prevIndex = (currentIndex - 1 + services.length) % services.length;
-    setCurrentIndex(prevIndex);
-    setExpandedIndex(prevIndex);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? services.length - 1 : prevIndex - 1
+    );
+    setExpandedIndex(null);
   };
 
   const handleNext = () => {
-    const nextIndex = (currentIndex + 1) % services.length;
-    setCurrentIndex(nextIndex);
-    setExpandedIndex(nextIndex);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === services.length - 1 ? 0 : prevIndex + 1
+    );
+    setExpandedIndex(null);
   };
 
   const handleCardClick = (index: number) => {
-    const container = document.getElementById('servicos');
-    if (expandedIndex !== null && expandedIndex === index && typeof window !== "undefined") {
-      const offsetTop = container?.offsetTop || 0;
-      window.scrollTo({ top: offsetTop + 300, behavior: 'smooth' });
+    if (expandedIndex === index) {
+      setExpandedIndex(null);
+    } else {
+      setExpandedIndex(index);
     }
-    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   const startIndex = Math.floor(currentIndex / itemsPerPage) * itemsPerPage;
@@ -215,10 +210,10 @@ export default function ActivityCarousel() {
           src={services[currentIndex].image}
           alt="Conheça nossos serviços"
           layout="fill"
-          objectFit="cover"
+          style={{ objectFit: "cover" }}
           quality={100}
           unoptimized={true}
-          className="w-full h-full object-cover"
+          className="w-full h-full"
         />
       </div>
 
@@ -234,86 +229,102 @@ export default function ActivityCarousel() {
 
         <div className="relative">
           <div className="flex flex-col md:flex-row overflow-hidden gap-8 mt-8 md:gap-16">
-            {displayedServices.map((service, index) => {
-              return (
-                <Card
-                  key={service.id}
-                  className={`w-full border-none flex-shrink-0 md:w-auto ${index === currentIndex ? 'block' : 'hidden'} md:block`}
-                  style={{
-                    width: windowWidth <= 500 ? '100%' :
-                      service.id === "01"
-                        ? "25%"
-                        : service.id === "02"
-                          ? "30%"
-                          : service.id === "03"
-                            ? "22.2%"
-                            : service.id === "04"
-                              ? "24.7%"
-                              : service.id === "05"
-                                ? "25%"
-                                : "auto",
-                  }}
+            {displayedServices.map((service, index) => (
+              <Card
+                key={service.id}
+                className={`w-full border-none flex-shrink-0 md:w-auto ${
+                  index === currentIndex ? "block" : "hidden"
+                } md:block`}
+                style={{
+                  width:
+                    windowWidth <= 500
+                      ? "100%"
+                      : service.id === "01"
+                      ? "25%"
+                      : service.id === "02"
+                      ? "30%"
+                      : service.id === "03"
+                      ? "22.2%"
+                      : service.id === "04"
+                      ? "24.7%"
+                      : service.id === "05"
+                      ? "25%"
+                      : "auto",
+                }}
+              >
+                <CardContent
+                  className={`p-4 md:p-0 border-none ${
+                    expandedIndex === startIndex + index
+                      ? "min-h-screen"
+                      : "min-h-auto"
+                  } md:h-auto`}
                 >
-                  <CardContent className={`p-4 md:p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
+                  <h3
+                    className="text-xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
+                    style={{
+                      color:
+                        startIndex + index === currentIndex
+                          ? "#000000"
+                          : "#D3D3D3",
+                    }}
                   >
-                    <h3
-                      className="text-xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
+                    {service.id}
+                  </h3>
+                  <h3
+                    className="text-xl md:text-[22px] font-medium mb-2 uppercase"
+                    style={{
+                      color:
+                        startIndex + index === currentIndex
+                          ? "#000000"
+                          : "#D3D3D3",
+                    }}
+                  >
+                    {service.title}
+                  </h3>
+                  <div className="relative">
+                    <div
+                      className="text-[12px] sm:text-sm text-black w-[100%] mb-4"
                       style={{
                         color:
-                          startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                          startIndex + index === currentIndex
+                            ? "#000000"
+                            : "#D3D3D3",
                       }}
                     >
-                      {service.id}
-                    </h3>
-                    <h3
-                      className="text-xl md:text-[22px] font-medium mb-2 uppercase"
-                      style={{
-                        color:
-                          startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
-                      }}
-                    >
-                      {service.title}
-                    </h3>
-                    <div className="relative">
-                      <div
-                        className="text-[12px] sm:text-sm text-black w-[100%] mb-4"
-                        style={{
-                          color: startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
-                        }}
-                      >
-                        {service.description}
-                      </div>
-                      {expandedIndex === startIndex + index && (
-                        <>
-                          <div
-                            className={`text-[12px] sm:text-sm mb-4 ${service.textWidth}`}
-                            style={{
-                              color: "#000000",
-                            }}
-                            dangerouslySetInnerHTML={{
-                              __html: service.fullDescription,
-                            }}
-                          />
-                          <p className="mt-2 text-[12px] sm:text-sm">
-                            <a href="https://www.youtube.com" className="font-bold text-black hover:underline">
-                              Saiba mais clicando aqui
-                            </a>
-                          </p>
-                        </>
-                      )}
-                      <Button
-                        variant="link"
-                        onClick={() => handleCardClick(startIndex + index)}
-
-                        className="text-[#7D7D7D] hover:no-underline text-[12px] sm:text-sm tracking-[0.2px] uppercase ml-[-16px] pt-2"
-                      >
-                        {expandedIndex === startIndex + index ? "Ver menos -" : "Ver mais +"}
-                      </Button>
+                      {service.description}
                     </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
+                    {expandedIndex === startIndex + index && (
+                      <>
+                        <div
+                          className={`text-[12px] sm:text-sm mb-4 ${service.textWidth}`}
+                          style={{ color: "#000000" }}
+                          dangerouslySetInnerHTML={{
+                            __html: service.fullDescription,
+                          }}
+                        />
+                        <p className="mt-2 text-[12px] sm:text-sm">
+                          <a
+                            href="https://www.youtube.com"
+                            className="font-bold text-black hover:underline"
+                          >
+                            Saiba mais clicando aqui
+                          </a>
+                        </p>
+                      </>
+                    )}
+                    <Button
+                      variant="link"
+                      onClick={() => handleCardClick(startIndex + index)}
+                      className="text-[#7D7D7D] hover:no-underline text-[12px] sm:text-sm tracking-[0.2px] uppercase ml-[-16px] pt-2"
+                    >
+                      {expandedIndex === startIndex + index
+                        ? "Ver menos -"
+                        : "Ver mais +"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px] gap-2">

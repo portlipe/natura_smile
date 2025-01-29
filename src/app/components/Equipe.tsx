@@ -25,19 +25,19 @@ const image = [
 const team = [
   'Dra Gabriela kerschbaumer',
   'Danilo Bernardes',
-  'Dr Marcel Machado',
-  'Dra Gabriela kerschbaumer',
-  'Danilo Bernardes',
-  'Dr Marcel Machado',
+  'Matheus Rocha',
+  'Alice França',
+  'Pamela Naibert',
+  'Tatiane Martins',
 ]
 
 const description = [
   'Harmonização facial | CRO 22156 ',
   'Ceramista, Oral Design | CRO 1062 ',
-  'Implantodontista ',
-  'Harmonização facial | CRO 22156 ',
-  'Ceramista, Oral Design | CRO 1062 ',
-  'Implantodontista ',
+  'APD 747',
+  'Estagiária',
+  'Estagiária',
+  'Administração geral e financeiro ',
 ]
 
 const items = image.map((img, index) => ({
