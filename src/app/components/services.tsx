@@ -26,7 +26,7 @@ const services = [
         Dependendo do procedimento realizado, alguns resultados podem ser vistos de imediato, logo a seguir à intervenção estética, mas o resultado final demora cerca de 15 a 30 dias a surgir. É importante que a harmonização facial seja feita por um profissional altamente capacitado, evitando assim qualquer risco de intercorrências.
       </p>
     `,
-    image: "/service1.png", 
+    image: "/service1.png",
     textWidth: "w-[90%] sm:w-[100%]"
   },
   {
@@ -150,30 +150,30 @@ export default function ActivityCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(3);
-  const [windowWidth, setWindowWidth] = useState(0); 
+  const [windowWidth, setWindowWidth] = useState(0);
 
-useEffect(() => {
-  const updateWindowWidthAndItemsPerPage = () => {
+  useEffect(() => {
+    const updateWindowWidthAndItemsPerPage = () => {
+      if (typeof window !== "undefined") {
+        const width = window.innerWidth;
+        setWindowWidth(width);
+        setItemsPerPage(width <= 390 ? 1 : 3);
+      }
+    };
+
+    updateWindowWidthAndItemsPerPage();
+
     if (typeof window !== "undefined") {
-      const width = window.innerWidth;
-      setWindowWidth(width); 
-      setItemsPerPage(width <= 390 ? 1 : 3);
+      window.addEventListener("resize", updateWindowWidthAndItemsPerPage);
     }
-  };
 
-  updateWindowWidthAndItemsPerPage();
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", updateWindowWidthAndItemsPerPage);
+      }
+    };
+  }, []);
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("resize", updateWindowWidthAndItemsPerPage);
-  }
-
-  return () => {
-    if (typeof window !== "undefined") {
-      window.removeEventListener("resize", updateWindowWidthAndItemsPerPage);
-    }
-  };
-}, []);
-  
 
   const handlePrev = () => {
     const prevIndex = (currentIndex - 1 + services.length) % services.length;
@@ -231,103 +231,104 @@ useEffect(() => {
             }}
           />
         </div>
-        
+
         <div className="relative">
           <div className="flex flex-col md:flex-row overflow-hidden gap-8 mt-8 md:gap-16">
             {displayedServices.map((service, index) => {
               return (
-              <Card
-                key={service.id}
-                className={`w-full border-none flex-shrink-0 md:w-auto ${index === currentIndex ? 'block' : 'hidden'} md:block`}
-                style={{
-                  width: windowWidth <= 500 ? '100%' :
-                    service.id === "01"
-                      ? "25%"
-                      : service.id === "02"
-                        ? "30%"
-                        : service.id === "03"
-                          ? "22.2%"
-                          : service.id === "04"
-                            ? "24.7%"
-                            : service.id === "05"
-                              ? "25%"
-                              : "auto",
-                }}
-              >
-                <CardContent className={`p-4 md:p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
+                <Card
+                  key={service.id}
+                  className={`w-full border-none flex-shrink-0 md:w-auto ${index === currentIndex ? 'block' : 'hidden'} md:block`}
+                  style={{
+                    width: windowWidth <= 500 ? '100%' :
+                      service.id === "01"
+                        ? "25%"
+                        : service.id === "02"
+                          ? "30%"
+                          : service.id === "03"
+                            ? "22.2%"
+                            : service.id === "04"
+                              ? "24.7%"
+                              : service.id === "05"
+                                ? "25%"
+                                : "auto",
+                  }}
                 >
-                  <h3
-                    className="text-xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
-                    style={{
-                      color:
-                        startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
-                    }}
+                  <CardContent className={`p-4 md:p-0 border-none ${expandedIndex === startIndex + index ? 'min-h-screen' : 'min-h-auto'} md:h-auto`}
                   >
-                    {service.id}
-                  </h3>
-                  <h3
-                    className="text-xl md:text-[22px] font-medium mb-2 uppercase"
-                    style={{
-                      color:
-                        startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                  <div className="relative">
-                    <div
-                      className="text-[12px] sm:text-sm text-black w-[100%] mb-4"
+                    <h3
+                      className="text-xl md:text-[22px] font-bold mb-2 mt-8 md:mt-[35px] uppercase"
                       style={{
-                        color: startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                        color:
+                          startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
                       }}
                     >
-                      {service.description}
-                    </div>
-                    {expandedIndex === startIndex + index && (
-                      <>
-                        <div
-                          className={`text-[12px] sm:text-sm mb-4 ${service.textWidth}`}
-                          style={{
-                            color: "#000000",
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: service.fullDescription,
-                          }}
-                        />
-                        <p className="mt-2 text-[12px] sm:text-sm">
-                          <a href="https://www.youtube.com" className="font-bold text-black hover:underline">
-                            Saiba mais clicando aqui
-                          </a>
-                        </p>
-                      </>
-                    )}
-                    <Button
-                      variant="link"
-                      onClick={() => handleCardClick(startIndex + index) }
-                      
-                      className="text-[#7D7D7D] hover:no-underline text-[12px] sm:text-sm tracking-[0.2px] uppercase ml-[-16px] pt-2"
+                      {service.id}
+                    </h3>
+                    <h3
+                      className="text-xl md:text-[22px] font-medium mb-2 uppercase"
+                      style={{
+                        color:
+                          startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                      }}
                     >
-                      {expandedIndex === startIndex + index ? "Ver menos -" : "Ver mais +"}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-)})}
+                      {service.title}
+                    </h3>
+                    <div className="relative">
+                      <div
+                        className="text-[12px] sm:text-sm text-black w-[100%] mb-4"
+                        style={{
+                          color: startIndex + index === currentIndex ? "#000000" : "#D3D3D3",
+                        }}
+                      >
+                        {service.description}
+                      </div>
+                      {expandedIndex === startIndex + index && (
+                        <>
+                          <div
+                            className={`text-[12px] sm:text-sm mb-4 ${service.textWidth}`}
+                            style={{
+                              color: "#000000",
+                            }}
+                            dangerouslySetInnerHTML={{
+                              __html: service.fullDescription,
+                            }}
+                          />
+                          <p className="mt-2 text-[12px] sm:text-sm">
+                            <a href="https://www.youtube.com" className="font-bold text-black hover:underline">
+                              Saiba mais clicando aqui
+                            </a>
+                          </p>
+                        </>
+                      )}
+                      <Button
+                        variant="link"
+                        onClick={() => handleCardClick(startIndex + index)}
+
+                        className="text-[#7D7D7D] hover:no-underline text-[12px] sm:text-sm tracking-[0.2px] uppercase ml-[-16px] pt-2"
+                      >
+                        {expandedIndex === startIndex + index ? "Ver menos -" : "Ver mais +"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
 
           <div className="mt-8 flex justify-center md:justify-end md:mr-[96px] pb-[40px] gap-2">
             <div onClick={handlePrev} className="cursor-pointer mr-4 md:mr-0">
               <Image
-                src="/right.svg"
+                src="/Right.svg"
                 alt="Left Arrow"
                 width={39}
                 height={39}
                 className="rotate-180"
               />
             </div>
-            <div onClick={() => handleNext} className="cursor-pointer">
+            <div onClick={handleNext} className="cursor-pointer">
               <Image
-                src="/right.svg"
+                src="/Right.svg"
                 alt="Right Arrow"
                 width={39}
                 height={39}
